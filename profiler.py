@@ -21,7 +21,7 @@ try:
     opts, args = getopt.getopt(argv, "i:c:d:")
 
 except:
-	print("error")
+	print("profiler.py -i <interface> -c <packet count> -d <destination>")
 	exit()
 
 for opt, arg in opts:
@@ -159,6 +159,6 @@ for p in capture.sniff_continuously(packet_count=pktCount):
 output = json.dumps(fields, ensure_ascii=False, sort_keys=True, indent=4)
 print(output)
 
-graphData('tcpWinSizeDist')
-graphData('tcpLengthDist')
-graphData('tcpFlagDist')
+#graphData('tcpWinSizeDist')
+#graphData('tcpLengthDist')
+#graphData('tcpFlagDist')
