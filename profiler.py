@@ -131,6 +131,7 @@ for p in capture.sniff_continuously(packet_count=pktCount):
         srcport = p.tcp.srcport
         dstport = p.tcp.dstport
         tcpflags = p.tcp.flags_str
+        tcpflags = tcpflags.replace("\\xc2\\xb7", "")
         tcpflags = tcpflags.replace("·", "")
 
         addOne("tcpFlagDist", tcpflags)
