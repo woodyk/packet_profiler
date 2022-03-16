@@ -83,7 +83,6 @@ for p in capture.sniff_continuously(packet_count=pktCount):
     # Determine layer 2 
     if 'arp' in p:
         proto = "ARP"
-        continue
         ipsrc = p.arp.src_proto_ipv4
         ipdst = p.arp.dst_proto_ipv4
 
@@ -146,7 +145,7 @@ for p in capture.sniff_continuously(packet_count=pktCount):
 
         #print(p.udp.field_names)
 
-    if proto == "ICMP" or proto == "ICMPv6" or proto == "IGMP":
+    if proto == "ARP" or proto == "ICMP" or proto == "ICMPv6" or proto == "IGMP":
         print('{} {} --> {}'.format(proto, ipsrc, ipdst))
     else:
         print('{} {}:{} --> {}:{}'.format(proto, ipsrc, srcport, ipdst, dstport))
