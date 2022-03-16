@@ -83,13 +83,19 @@ for p in capture.sniff_continuously(packet_count=pktCount):
     # Determine layer 2 
     if 'arp' in p:
         proto = "ARP"
+
+        addOne("ipSrcIpDist", p.arp.src_proto_ipv4)
+
         ipsrc = p.arp.src_proto_ipv4
         ipdst = p.arp.dst_proto_ipv4
+
+        #print(p.arp.field_names)
 
     # Deterimine layer 3 ipv4 vs ipv6
     if 'ip' in p:
         ipsrc = p.ip.src
         ipdst = p.ip.dst
+
         addOne("ipSrcIpDist", p.ip.src)
         addOne("ipLenDist", p.ip.len)
         addOne("ipTtlDist", p.ip.ttl)
@@ -99,6 +105,7 @@ for p in capture.sniff_continuously(packet_count=pktCount):
     if 'ipv6' in p:
         ipsrc = p.ipv6.src
         ipdst = p.ipv6.dst
+
         addOne("ipSrcIpDist", p.ipv6.src)
 
         #print(p.ipv6.field_names)
