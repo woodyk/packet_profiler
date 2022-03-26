@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 #
-# profiler.py -- <woody@smallroom.com>
 # profiler.py -i <interface> -c <packet_count> -d <destination_IP>
 
 import matplotlib.pyplot as plt
