@@ -13,6 +13,10 @@ dev = "en0"
 pktCount = 1
 dstHost = '192.168.1.202'
 
+def help():
+    print("profiler.py -i <interface> -c <packet count> -d <destination>")
+    exit()
+
 # Get options for execution
 argv = sys.argv[1:]
 
@@ -20,8 +24,10 @@ try:
     opts, args = getopt.getopt(argv, "i:c:d:")
 
 except:
-	print("profiler.py -i <interface> -c <packet count> -d <destination>")
-	exit()
+    help()
+
+if not opts:
+    help()
 
 for opt, arg in opts:
     if opt == '-i':
