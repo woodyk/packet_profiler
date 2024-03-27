@@ -185,88 +185,95 @@ import json
 def summarize_network_traffic(json_doc):
     data = json_doc
 
-    # Get basic statistics
-    num_packets = data.pop("packets")
-    print("\nSummary of Network Traffic:")
-    print(f"Total Packets: {num_packets}\n")
+    if 'packets' in data:
+        # Get basic statistics
+        num_packets = data.pop("packets")
+        print("\nSummary of Network Traffic:")
+        print(f"Total Packets: {num_packets}\n")
 
-    # Process icmpTypeDist
-    icmp_types = sorted(list(data['icmpTypeDist'].keys()))
-    icmp_type_freq = sorted(list(data['icmpTypeDist'].values()))
-    print("ICMP Types Distribution:")
-    print("Types:", ", ".join([f"{typ} ({frq})" for typ, frq in zip(icmp_types, icmp_type_freq)]))
+    if 'icmpTypeDist' in data:
+        # Process icmpTypeDist
+        icmp_types = sorted(list(data['icmpTypeDist'].keys()))
+        icmp_type_freq = sorted(list(data['icmpTypeDist'].values()))
+        print("ICMP Types Distribution:")
+        print("Types:", ", ".join([f"{typ} ({frq})" for typ, frq in zip(icmp_types, icmp_type_freq)]))
 
-    # Process ipProtocolDist
-    ip_protos = sorted(list(data['ipProtoDist'].keys()))
-    ip_proto_freq = sorted(list(data['ipProtoDist'].values()))
-    print("\nIP Protocol Distribution:")
-    print("Protocols:", ", ".join([f"{prot} ({frq})" for prot, frq in zip(ip_protos, ip_proto_freq)]))
+    if 'ipProtoDist' in data:
+        # Process ipProtocolDist
+        ip_protos = sorted(list(data['ipProtoDist'].keys()))
+        ip_proto_freq = sorted(list(data['ipProtoDist'].values()))
+        print("\nIP Protocol Distribution:")
+        print("Protocols:", ", ".join([f"{prot} ({frq})" for prot, frq in zip(ip_protos, ip_proto_freq)]))
 
-    # Process ipSourceIpDist
-    ip_srcs = sorted(list(data['ipSrcIpDist'].keys()))
-    ip_src_freq = sorted(list(data['ipSrcIpDist'].values()))
-    print("\nIP Source IP Distribution:")
-    print("Sources:", ", ".join([f"{src} ({frq})" for src, frq in zip(ip_srcs, ip_src_freq)]))
+    if 'ipSrcIpDist' in data:
+        # Process ipSourceIpDist
+        ip_srcs = sorted(list(data['ipSrcIpDist'].keys()))
+        ip_src_freq = sorted(list(data['ipSrcIpDist'].values()))
+        print("\nIP Source IP Distribution:")
+        print("Sources:", ", ".join([f"{src} ({frq})" for src, frq in zip(ip_srcs, ip_src_freq)]))
 
-    # Process ipDestinationIpDist
-    ip_dests = sorted(list(data['ipDstIpDist'].keys()))
-    ip_dest_freq = sorted(list(data['ipDstIpDist'].values()))
-    print("\nIP Destination IP Distribution:")
-    print("Destinations:", ", ".join([f"{dst} ({frq})" for dst, frq in zip(ip_dests, ip_dest_freq)]))
+    if 'ipDstIpDist' in data:
+        # Process ipDestinationIpDist
+        ip_dests = sorted(list(data['ipDstIpDist'].keys()))
+        ip_dest_freq = sorted(list(data['ipDstIpDist'].values()))
+        print("\nIP Destination IP Distribution:")
+        print("Destinations:", ", ".join([f"{dst} ({frq})" for dst, frq in zip(ip_dests, ip_dest_freq)]))
 
-    # Process ipTimeToLiveDist
-    ttls = sorted(list(data['ipTtlDist'].keys()))
-    ttl_freq = sorted(list(data['ipTtlDist'].values()))
-    print("\nIP Time To Live Distribution:")
-    print("Values:", ", ".join([f"{val} ({frq})" for val, frq in zip(ttls, ttl_freq)]))
+    if 'ipTtlDist' in data:
+        # Process ipTimeToLiveDist
+        ttls = sorted(list(data['ipTtlDist'].keys()))
+        ttl_freq = sorted(list(data['ipTtlDist'].values()))
+        print("\nIP Time To Live Distribution:")
+        print("Values:", ", ".join([f"{val} ({frq})" for val, frq in zip(ttls, ttl_freq)]))
 
-    # Process ipLengthDist
-    lengths = sorted(list(data['ipLenDist'].keys()))
-    length_freq = sorted(list(data['ipLenDist'].values()))
-    print("\nIP Packet Length Distribution:")
-    print("Lengths:", ", ".join([f"{lengh} ({frq})" for lengh, frq in zip(lengths, length_freq)]))
+    if 'ipLenDist' in data:
+        # Process ipLengthDist
+        lengths = sorted(list(data['ipLenDist'].keys()))
+        length_freq = sorted(list(data['ipLenDist'].values()))
+        print("\nIP Packet Length Distribution:")
+        print("Lengths:", ", ".join([f"{lengh} ({frq})" for lengh, frq in zip(lengths, length_freq)]))
 
-    # Process ipHeaderLengthDist
-    hdr_lens = sorted(list(data['ipHeaderLength'].keys()))
-    hdr_len_freq = sorted(list(data['ipHeaderLength'].values()))
-    print("\nIP Header Length Distribution:")
-    print("Lengths:", ", ".join([f"{hdr_len} ({frq})" for hdr_len, frq in zip(hdr_lens, hdr_len_freq)]))
+    if 'unknown' in data:
+        # Process ipIdentificationDist
+        ids = sorted(list(data['ipIdentification'].keys()))
+        id_freq = sorted(list(data['ipIdentification'].values()))
+        print("\nIP Identification Distribution:")
+        print("IDs:", ", ".join([f"{id} ({frq})" for id, frq in zip(ids, id_freq)]))
 
-    # Process ipIdentificationDist
-    ids = sorted(list(data['ipIdentification'].keys()))
-    id_freq = sorted(list(data['ipIdentification'].values()))
-    print("\nIP Identification Distribution:")
-    print("IDs:", ", ".join([f"{id} ({frq})" for id, frq in zip(ids, id_freq)]))
+    if 'unknown' in data:
+        # Process ipFragmentOffsetDist
+        frag_offsets = sorted(list(data['ipFragmentOffset'].keys()))
+        frag_offset_freq = sorted(list(data['ipFragmentOffset'].values()))
+        print("\nIP Fragment Offset Distribution:")
+        print("Offsets:", ", ".join([f"{frag_offset} ({frq})" for frag_offset, frq in zip(frag_offsets, frag_offset_freq)]))
 
-    # Process ipFragmentOffsetDist
-    frag_offsets = sorted(list(data['ipFragmentOffset'].keys()))
-    frag_offset_freq = sorted(list(data['ipFragmentOffset'].values()))
-    print("\nIP Fragment Offset Distribution:")
-    print("Offsets:", ", ".join([f"{frag_offset} ({frq})" for frag_offset, frq in zip(frag_offsets, frag_offset_freq)]))
+    if 'tcpSrcPortDist' in data:
+        # Process tcpSrcPortDist
+        tcp_src_ports = sorted(list(data['tcpSrcPortDist'].keys()))
+        tcp_src_port_freq = sorted(list(data['tcpSrcPortDist'].values()))
+        print("\nTCP Source Port Distribution:")
+        print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(tcp_src_ports, tcp_src_port_freq)]))
 
-    # Process tcpSrcPortDist
-    tcp_src_ports = sorted(list(data['tcpSrcPort'].keys()))
-    tcp_src_port_freq = sorted(list(data['tcpSrcPort'].values()))
-    print("\nTCP Source Port Distribution:")
-    print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(tcp_src_ports, tcp_src_port_freq)]))
+    if 'packets' in data:
+        # Process tcpDestPortDist
+        tcp_dest_ports = sorted(list(data['tcpDestPort'].keys()))
+        tcp_dest_port_freq = sorted(list(data['tcpDestPort'].values()))
+        print("\nTCP Destination Port Distribution:")
+        print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(tcp_dest_ports, tcp_dest_port_freq)]))
 
-    # Process tcpDestPortDist
-    tcp_dest_ports = sorted(list(data['tcpDestPort'].keys()))
-    tcp_dest_port_freq = sorted(list(data['tcpDestPort'].values()))
-    print("\nTCP Destination Port Distribution:")
-    print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(tcp_dest_ports, tcp_dest_port_freq)]))
+    if 'packets' in data:
+        # Process udpSrcPortDist
+        udp_src_ports = sorted(list(data['udpSrcPort'].keys()))
+        udp_src_port_freq = sorted(list(data['udpSrcPort'].values()))
+        print("\nUDP Source Port Distribution:")
+        print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(udp_src_ports, udp_src_port_freq)]))
 
-    # Process udpSrcPortDist
-    udp_src_ports = sorted(list(data['udpSrcPort'].keys()))
-    udp_src_port_freq = sorted(list(data['udpSrcPort'].values()))
-    print("\nUDP Source Port Distribution:")
-    print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(udp_src_ports, udp_src_port_freq)]))
-
-    # Process udpDestPortDist
-    udp_dest_ports = sorted(list(data['udpDestPort'].keys()))
-    udp_dest_port_freq = sorted(list(data['udpDestPort'].values()))
-    print("\nUDP Destination Port Distribution:")
-    print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(udp_dest_ports, udp_dest_port_freq)]))
+    if 'packets' in data:
+        # Process udpDestPortDist
+        udp_dest_ports = sorted(list(data['udpDestPort'].keys()))
+        udp_dest_port_freq = sorted(list(data['udpDestPort'].values()))
+        print("\nUDP Destination Port Distribution:")
+        print("Ports:", ", ".join([f"{port} ({frq})" for port, frq in zip(udp_dest_ports, udp_dest_port_freq)]))
 
     '''
     # Read JSON document from a file
